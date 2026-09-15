@@ -1,0 +1,320 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+
+    <title>
+
+        {% if edit_mode %}
+            Edit Employee
+        {% else %}
+            Add Employee
+        {% endif %}
+
+    </title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+        }
+
+
+        nav {
+            background-color: #302b63;
+            color: white;
+
+            padding: 18px 30px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+        }
+
+
+        nav a {
+            color: white;
+
+            text-decoration: none;
+
+            margin-left: 20px;
+        }
+
+
+        .form-container {
+            width: 450px;
+
+            margin: 50px auto;
+
+            background-color: white;
+
+            padding: 30px;
+
+            border-radius: 10px;
+
+            box-shadow: 0 0 10px #ccc;
+        }
+
+
+        h1 {
+            text-align: center;
+
+            color: #302b63;
+
+            margin-bottom: 25px;
+        }
+
+
+        label {
+            display: block;
+
+            margin-top: 15px;
+
+            margin-bottom: 5px;
+
+            font-weight: bold;
+        }
+
+
+        input {
+            width: 100%;
+
+            padding: 11px;
+
+            border: 1px solid #ccc;
+
+            border-radius: 5px;
+        }
+
+
+        button {
+            width: 100%;
+
+            padding: 12px;
+
+            margin-top: 20px;
+
+            background-color: #302b63;
+
+            color: white;
+
+            border: none;
+
+            border-radius: 5px;
+
+            cursor: pointer;
+
+            font-size: 16px;
+        }
+
+
+        button:hover {
+            background-color: #8e44ad;
+        }
+
+
+        .reset-button {
+            background-color: #777;
+        }
+
+
+        .reset-button:hover {
+            background-color: #555;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- Navigation Bar -->
+
+    <nav>
+
+        <h2>
+            Employee Management System
+        </h2>
+
+
+        <div>
+
+            <a href="/home">Home</a>
+
+            <a href="/employees">Employees</a>
+
+            <a href="/addemployee">Add Employee</a>
+
+            <a href="/search">Search</a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- Add / Edit Employee Form -->
+
+    <div class="form-container">
+
+
+        {% if edit_mode %}
+
+            <h1>
+                Edit Employee
+            </h1>
+
+        {% else %}
+
+            <h1>
+                Add Employee
+            </h1>
+
+        {% endif %}
+
+
+        <form method="POST">
+
+
+            <!-- Employee Name -->
+
+            <label>
+                Employee Name
+            </label>
+
+            <input type="text"
+                   name="name"
+
+                   placeholder="Enter employee name"
+
+                   value="{% if employee %}{{ employee.name }}{% endif %}"
+
+                   required>
+
+
+            <!-- Email -->
+
+            <label>
+                Email
+            </label>
+
+            <input type="email"
+                   name="email"
+
+                   placeholder="Enter email"
+
+                   value="{% if employee %}{{ employee.email }}{% endif %}"
+
+                   required>
+
+
+            <!-- Phone -->
+
+            <label>
+                Phone
+            </label>
+
+            <input type="text"
+                   name="phone"
+
+                   placeholder="Enter phone number"
+
+                   value="{% if employee %}{{ employee.phone }}{% endif %}"
+
+                   required>
+
+
+            <!-- Department -->
+
+            <label>
+                Department
+            </label>
+
+            <input type="text"
+                   name="department"
+
+                   placeholder="Enter department"
+
+                   value="{% if employee %}{{ employee.department }}{% endif %}"
+
+                   required>
+
+
+            <!-- Salary -->
+
+            <label>
+                Salary
+            </label>
+
+            <input type="number"
+                   name="salary"
+
+                   placeholder="Enter salary"
+
+                   value="{% if employee %}{{ employee.salary }}{% endif %}"
+
+                   required>
+
+
+            <!-- ADD / UPDATE BUTTON -->
+
+            {% if edit_mode %}
+
+                <button type="submit">
+
+                    Update Employee
+
+                </button>
+
+            {% else %}
+
+                <button type="submit">
+
+                    Add Employee
+
+                </button>
+
+            {% endif %}
+
+
+            <!-- RESET BUTTON -->
+
+            <button type="reset"
+                    class="reset-button">
+
+                Reset
+
+            </button>
+
+
+        </form>
+
+
+    </div>
+
+
+</body>
+
+</html>
+
+
+
