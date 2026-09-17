@@ -6,11 +6,9 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Search Employee</title>
-
 
     <style>
 
@@ -20,121 +18,103 @@
             box-sizing: border-box;
         }
 
-
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            background-color: #f4f4f4;
         }
 
+        /* Navigation */
 
         nav {
             background-color: #302b63;
-
-            color: white;
-
-            padding: 18px 30px;
-
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: center;
+            padding: 15px;
+            text-align: center;
         }
-
 
         nav a {
             color: white;
-
             text-decoration: none;
-
-            margin-left: 20px;
+            margin: 0 15px;
         }
 
+        nav a:hover {
+            text-decoration: underline;
+        }
 
-        .form-container {
-            width: 450px;
+        /* Container */
 
-            margin: 60px auto;
-
+        .container {
+            width: 95%;
+            margin: 40px auto;
             background-color: white;
-
             padding: 30px;
-
             border-radius: 10px;
-
-            box-shadow: 0 0 10px #ccc;
         }
-
 
         h1 {
             text-align: center;
-
             color: #302b63;
-
             margin-bottom: 25px;
         }
 
+        /* Search Box */
 
-        label {
-            display: block;
-
-            margin-bottom: 5px;
-
-            font-weight: bold;
+        .search-box {
+            text-align: center;
+            margin-bottom: 30px;
         }
 
-
-        input {
-            width: 100%;
-
-            padding: 11px;
-
-            border: 1px solid #ccc;
-
-            border-radius: 5px;
-        }
-
-
-        button {
-            width: 100%;
-
+        .search-box input {
+            width: 300px;
             padding: 12px;
-
-            margin-top: 20px;
-
-            background-color: #302b63;
-
-            color: white;
-
-            border: none;
-
+            border: 1px solid #ccc;
             border-radius: 5px;
+        }
 
+        .search-box button {
+            padding: 12px 20px;
+            background-color: #302b63;
+            color: white;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
         }
 
-
-        button:hover {
+        .search-box button:hover {
             background-color: #8e44ad;
         }
 
+        /* Table */
 
-        .result {
-            margin-top: 30px;
-
-            padding: 20px;
-
-            background-color: #f4f4f9;
-
-            border-radius: 5px;
+        table {
+            width: 100%;
+            border-collapse: collapse;
         }
 
-
-        .error {
-            color: red;
-
+        th {
+            background-color: #302b63;
+            color: white;
+            padding: 12px;
             text-align: center;
+        }
 
+        td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #e8e4f8;
+        }
+
+        .no-result {
+            text-align: center;
+            color: red;
             margin-top: 20px;
         }
 
@@ -142,126 +122,120 @@
 
 </head>
 
-
 <body>
 
 
+    <!-- Navigation -->
+
     <nav>
 
-        <h2>
-            Employee Management System
-        </h2>
+        <a href="/home">Home</a>
 
+        <a href="/employees">Employees</a>
 
-        <div>
+        <a href="/addemployee">Add Employee</a>
 
-            <a href="/home">Home</a>
+        <a href="/search">Search</a>
 
-            <a href="/employees">Employees</a>
+        <a href="/login">Login</a>
 
-            <a href="/addemployee">Add Employee</a>
-
-        </div>
+        <a href="/register">Register</a>
 
     </nav>
 
 
-    <div class="form-container">
+    <!-- Main Container -->
 
-        <h1>
-            Search Employee
-        </h1>
+    <div class="container">
 
-
-        <form method="POST">
-
-            <label>
-                Employee Name
-            </label>
+        <h1>Search Employee</h1>
 
 
-            <input type="text"
-                   name="search_name"
+        <!-- Search Form -->
 
-                   placeholder="Enter employee name"
+        <div class="search-box">
 
-                   required>
+            <form method="GET" action="/search">
+
+                <input
+                    type="text"
+                    name="query"
+                    placeholder="Enter employee name or ID"
+                    value="{{ request.args.get('query', '') }}"
+                >
+
+                <button type="submit">
+                    Search
+                </button>
+
+            </form>
+
+        </div>
 
 
-            <button type="submit">
+        <!-- Search Results -->
 
-                Search
+        {% if employees %}
 
-            </button>
+        <table>
 
-        </form>
+            <tr>
+
+                <th>Employee ID</th>
+
+                <th>Name</th>
+
+                <th>Department</th>
+
+                <th>Position</th>
+
+                <th>Email</th>
+
+                <th>Phone</th>
+
+                <th>Salary</th>
+
+            </tr>
 
 
-        {% if results %}
+            {% for employee in employees %}
 
+            <tr>
 
-            {% for employee in results %}
+                <td>{{ employee.id }}</td>
 
+                <td>{{ employee.name }}</td>
 
-                <div class="result">
+                <td>{{ employee.department }}</td>
 
-                    <p>
-                        <strong>Name:</strong>
-                        {{ employee.name }}
-                    </p>
+                <td>{{ employee.position }}</td>
 
-                    <br>
+                <td>{{ employee.email }}</td>
 
-                    <p>
-                        <strong>Email:</strong>
-                        {{ employee.email }}
-                    </p>
+                <td>{{ employee.phone }}</td>
 
-                    <br>
+                <td>₹ {{ employee.salary }}</td>
 
-                    <p>
-                        <strong>Phone:</strong>
-                        {{ employee.phone }}
-                    </p>
-
-                    <br>
-
-                    <p>
-                        <strong>Department:</strong>
-                        {{ employee.department }}
-                    </p>
-
-                    <br>
-
-                    <p>
-                        <strong>Salary:</strong>
-                        {{ employee.salary }}
-                    </p>
-
-                </div>
-
+            </tr>
 
             {% endfor %}
 
+        </table>
 
-        {% elif request.method == "POST" %}
 
+        {% elif request.args.get('query') %}
 
-            <p class="error">
-
-                Employee not found.
-
-            </p>
-
+        <p class="no-result">
+            No employee found.
+        </p>
 
         {% endif %}
 
 
     </div>
 
-
 </body>
 
 </html>
-```
+
 
