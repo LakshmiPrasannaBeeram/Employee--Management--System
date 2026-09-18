@@ -1,0 +1,261 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Login</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+        }
+
+
+        nav {
+            background-color: #302b63;
+            color: white;
+
+            padding: 18px 30px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+
+        .form-container {
+            width: 450px;
+
+            margin: 60px auto;
+
+            background-color: white;
+
+            padding: 30px;
+
+            border-radius: 10px;
+
+            box-shadow: 0 0 10px #ccc;
+        }
+
+
+        h1 {
+            text-align: center;
+            color: #302b63;
+            margin-bottom: 25px;
+        }
+
+
+        label {
+            display: block;
+
+            margin-top: 15px;
+            margin-bottom: 5px;
+
+            font-weight: bold;
+        }
+
+
+        input {
+            width: 100%;
+
+            padding: 11px;
+
+            border: 1px solid #ccc;
+
+            border-radius: 5px;
+        }
+
+
+        button {
+            width: 100%;
+
+            padding: 12px;
+
+            margin-top: 25px;
+
+            background-color: #302b63;
+
+            color: white;
+
+            border: none;
+
+            border-radius: 5px;
+
+            cursor: pointer;
+
+            font-size: 16px;
+        }
+
+
+        button:hover {
+            background-color: #8e44ad;
+        }
+
+
+        .success-message {
+            color: green;
+
+            text-align: center;
+
+            font-weight: bold;
+
+            margin-bottom: 20px;
+        }
+
+
+        .error-message {
+            color: red;
+
+            text-align: center;
+
+            margin-bottom: 20px;
+        }
+
+
+        p {
+            text-align: center;
+            margin-top: 18px;
+        }
+
+
+        p a {
+            color: #302b63;
+            font-weight: bold;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <nav>
+
+        <h2>
+            Employee Management System
+        </h2>
+
+
+        <div>
+
+            <a href="/home">Home</a>
+
+            <a href="/register">Register</a>
+
+        </div>
+
+    </nav>
+
+
+    <div class="form-container">
+
+        <h1>
+            Login
+        </h1>
+
+
+        <!-- Success / Error Messages -->
+
+        {% with messages = get_flashed_messages() %}
+
+            {% if messages %}
+
+                {% for message in messages %}
+
+                    {% if "Successfully" in message or "successful" in message %}
+
+                        <div class="success-message">
+                            {{ message }}
+                        </div>
+
+                    {% else %}
+
+                        <div class="error-message">
+                            {{ message }}
+                        </div>
+
+                    {% endif %}
+
+                {% endfor %}
+
+            {% endif %}
+
+        {% endwith %}
+
+
+        <form method="POST">
+
+
+            <label>
+                Username
+            </label>
+
+            <input type="text"
+                   name="username"
+                   placeholder="Enter username"
+                   required>
+
+
+            <label>
+                Password
+            </label>
+
+            <input type="password"
+                   name="password"
+                   placeholder="Enter password"
+                   required>
+
+
+            <button type="submit">
+
+                Login
+
+            </button>
+
+
+        </form>
+
+
+        <p>
+
+            Don't have an account?
+
+            <a href="/register">
+                Register here
+            </a>
+
+        </p>
+
+
+    </div>
+
+
+</body>
+
+</html>
+
